@@ -1,0 +1,12 @@
+const router = require('express').Router();
+const { getProducts, getCategories, getProductById, createProduct, updateProduct, deleteProduct } = require('../controllers/productController');
+const { protect } = require('../middleware/auth');
+const { adminOnly } = require('../middleware/admin');
+const upload = require('../middleware/upload');
+router.get('/categories', getCategories);
+router.get('/', getProducts);
+router.get('/:id', getProductById);
+router.post('/', protect, adminOnly, upload.single('image'), createProduct);
+router.put('/:id', protect, adminOnly, upload.single('image'), updateProduct);
+router.delete('/:id', protect, adminOnly, deleteProduct);
+module.exports = router;
