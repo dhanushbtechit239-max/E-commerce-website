@@ -78,7 +78,7 @@ const Orders = () => {
                 <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '0.75rem', marginTop: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ color: '#64748b', fontSize: '0.8rem' }}>{order.paymentMethod === 'COD' ? '💵 Cash on Delivery' : '💳 Online Payment'}</span>
                   <span style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1rem', background: 'linear-gradient(135deg,#6366f1,#ec4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                    {fmt(order.totalAmount)}
+                    {fmt(order.totalPrice)}
                   </span>
                 </div>
               </div>
