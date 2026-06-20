@@ -54,8 +54,9 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('✅  MySQL connected successfully.');
 
-    // Sync all models (alter: true is safe for dev — doesn't drop data)
-    await sequelize.sync({ alter: true });
+    // Sync models — use alter only in development
+    const isProduction = process.env.NODE_ENV === 'production';
+    await sequelize.sync({ alter: !isProduction });
     console.log('✅  Database synced.');
 
     app.listen(PORT, () => {
