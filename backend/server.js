@@ -9,8 +9,27 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ─── Middleware ───────────────────────────────────────────────
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+];
+if (process.env.CLIENT_URL) {
+  const envOrigins = process.env.CLIENT_URL.split(',').map(o => o.trim());
+  allowedOrigins.push(...envOrigins);
+}
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl, or server-to-server)
+    if (!origin) return callback(null, true);
+    
+    const isAllowed = allowedOrigins.some(allowed => origin === allowed || origin.endsWith('.vercel.app'));
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(null, false); // Let CORS middleware handle rejection instead of throwing unhandled error
+    }
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
