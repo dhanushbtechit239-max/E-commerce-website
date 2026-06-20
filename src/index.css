@@ -46,6 +46,12 @@ body {
 .glass-card:hover { border-color: var(--border-hover); }
 
 /* ── Product Card ───────────────────────────────────── */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
 .product-card {
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
